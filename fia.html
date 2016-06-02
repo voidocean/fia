@@ -1,0 +1,95 @@
+<html>
+<head>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	</head>
+<body>
+
+	<div class="container">
+		<h3>Financial intelligence Accounting (FIA) Version 0.02</h3>
+		<div class="row">
+			<div class="col-md-12">
+			<input id="month" placeholder="month"/>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<textarea id="data" value=""></textarea>
+			<button id="kia">Convert</button>
+			<button id="clear">Clear</button>
+			</div>
+			
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">old data</h3>
+	            </div>
+	            <div class="panel-body">
+	              <table class="table table-striped">
+					<tbody><tr></tr>
+					</tbody><tbody id="oldbody">
+					</tbody>
+				</table>
+	            </div>
+	          </div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-info">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">new data</h3>
+	            </div>
+	            <div class="panel-body">
+	              <table class="table table-striped">
+					<tbody><tr></tr>
+					</tbody><tbody id="newbody">
+					</tbody>
+				</table>
+	            </div>
+	          </div>
+			</div>
+	     </div>
+	</div>
+	
+	
+
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script>
+		$('#kia').on('click', function(){
+			var month = parseInt($("#month").val())
+			$("#newbody").html("")
+			$("#oldbody").html("")
+			var newlineshit = $("#data").val().split("\n");
+			var arrayofnewDate = new Array();
+			for (var i = 0; i < newlineshit.length; i++) {
+				var temparray = new Array();
+				temparray = newlineshit[i].split(" ");
+				arrayofnewDate[i] = temparray[0];
+				
+				var tempdate = arrayofnewDate[i].split("/");
+				console.log("Current");
+				console.log(arrayofnewDate[i]);
+				console.log("new");
+				console.log(tempdate[1] + "/" +tempdate[0]+"/"+tempdate[2]);
+
+				if(month != parseInt(tempdate[0]))
+				{
+					var superdate = tempdate[1] + "/" +tempdate[0]+"/"+tempdate[2];
+					$("#oldbody").append("<tr><td>"+newlineshit[i]+"</td></tr>")
+					$("#newbody").append("<tr><td>"+superdate+"</td></tr>")
+				}
+				else{
+					var superdate = tempdate[0] + "/" +tempdate[1]+"/"+tempdate[2];
+				$("#oldbody").append("<tr><td>"+newlineshit[i]+"</td></tr>")
+				$("#newbody").append("<tr><td>"+superdate+"</td></tr>")
+				}
+				
+
+			};
+		})
+		$('#clear').on('click', function(){
+				$("#data").val("");
+		});
+	</script>
+</body>
+</html>
